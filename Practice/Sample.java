@@ -1,6 +1,6 @@
-package ractice;
+package Practice;
 
-public class main {
+public class Sample {
     public static void main(String[] args) {
         System.out.println("Hello WOORLD");
     }
