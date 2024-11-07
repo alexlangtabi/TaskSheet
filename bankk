@@ -1,0 +1,170 @@
+Here's a simple Java program simulating a banking system:
+
+*Banking System Program*
+```
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+// Customer class
+class Customer {
+    private String accountNumber;
+    private String name;
+    private double balance;
+
+    public Customer(String accountNumber, String name, double balance) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    // Getters and Setters
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+}
+
+// Bank class
+class Bank {
+    private Map<String, Customer> customers;
+
+    public Bank() {
+        customers = new HashMap<>();
+    }
+
+    // Add customer
+    public void addCustomer(String accountNumber, String name, double balance) {
+        customers.put(accountNumber, new Customer(accountNumber, name, balance));
+    }
+
+    // Deposit money
+    public void deposit(String accountNumber, double amount) {
+        Customer customer = customers.get(accountNumber);
+        if (customer != null) {
+            customer.setBalance(customer.getBalance() + amount);
+            System.out.println("Deposit successful. New balance: " + customer.getBalance());
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+
+    // Withdraw money
+    public void withdraw(String accountNumber, double amount) {
+        Customer customer = customers.get(accountNumber);
+        if (customer != null) {
+            if (customer.getBalance() >= amount) {
+                customer.setBalance(customer.getBalance() - amount);
+                System.out.println("Withdrawal successful. New balance: " + customer.getBalance());
+            } else {
+                System.out.println("Insufficient balance.");
+            }
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+
+    // Check balance
+    public void checkBalance(String accountNumber) {
+        Customer customer = customers.get(accountNumber);
+        if (customer != null) {
+            System.out.println("Balance: " + customer.getBalance());
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+
+    // Display customer information
+    public void displayCustomerInfo(String accountNumber) {
+        Customer customer = customers.get(accountNumber);
+        if (customer != null) {
+            System.out.println("Account Number: " + customer.getAccountNumber());
+            System.out.println("Name: " + customer.getName());
+            System.out.println("Balance: " + customer.getBalance());
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+}
+
+// Main class
+public class BankingSystem {
+    public static void main(String[] args) {
+        Bank bank = new Bank();
+        Scanner scanner = new Scanner(System.in);
+
+        // Initialize customers
+        bank.addCustomer("12345", "John Doe", 1000.0);
+        bank.addCustomer("67890", "Jane Smith", 500.0);
+
+        while (true) {
+            System.out.println("Banking System Menu:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Display Customer Info");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter account number: ");
+                    String accountNumber = scanner.next();
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble();
+                    bank.deposit(accountNumber, depositAmount);
+                    break;
+                case 2:
+                    System.out.print("Enter account number: ");
+                    accountNumber = scanner.next();
+                    System.out.print("Enter withdrawal amount: ");
+                    double withdrawalAmount = scanner.nextDouble();
+                    bank.withdraw(accountNumber, withdrawalAmount);
+                    break;
+                case 3:
+                    System.out.print("Enter account number: ");
+                    accountNumber = scanner.next();
+                    bank.checkBalance(accountNumber);
+                    break;
+                case 4:
+                    System.out.print("Enter account number: ");
+                    accountNumber = scanner.next();
+                    bank.displayCustomerInfo(accountNumber);
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
+```
+
+*How to Run:*
+
+1. Save this code in a file named `BankingSystem.java`.
+2. Compile the program using `javac BankingSystem.java`.
+3. Run the program using `java BankingSystem`.
+
+*Example Use Cases:*
+
+1. Deposit money into an account.
+2. Withdraw money from an account.
+3. Check the balance of an account.
+4. Display customer information.
+
+**Key Features:
